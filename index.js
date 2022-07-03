@@ -8,7 +8,7 @@ function drawRectangle(width, height) {
   recatangle.height = height;
   recatangle.draw = function () {
     // this here refers to the same object.
-    console.log(this);
+    console.log("Factory function : Inside draw method: ", this);
     const { width, height } = this;
     for (let j = 0; j < height; j++) {
       for (let i = 0; i < width; i++) {
@@ -34,8 +34,7 @@ const rect2 = drawRectangle(10, 6);
 rect2.draw();
 
 // Drawbacks of factory function
-// The methods related to the object is being recreated everytime
-// a object is created using factory function.
+// The methods related to the object is being recreated everytime when object is created using factory function.
 // Those methods are unique to the object created.
 // Eg: rect 1 and rect 2 has its own unique copy of draw and rotate methods.
 
@@ -68,11 +67,11 @@ function Rectangle(width, height) {
   this.height = height;
 }
 
-// Now, We can define methods on prototype.
+// Now, We can define methods on consturnctor function's prototype.
 // Don't use arrow functions becuase referring to this is different.
 Rectangle.prototype.draw = function () {
   // this here refers to the newInstance.
-  console.log(this);
+  console.log("Constructor function : Inside draw method: ", this);
   const { width, height } = this;
   for (let j = 0; j < height; j++) {
     for (let i = 0; i < width; i++) {
@@ -97,4 +96,44 @@ const rect4 = new Rectangle(7, 8);
 rect4.draw();
 
 // Methods are not defined in each object, but in shared prototype.
-console.log(rect3.__proto__);
+console.log("Factory function : Prototype ", rect3.__proto__);
+
+// ===================================================================================================
+// ===================================================================================================
+
+// Classes
+// Syntactic sugar for constructor functions
+class Rectangle2 {
+  constructor(width, height) {
+    this.width = width;
+    this.height = height;
+  }
+
+  draw() {
+    // this here refers to the newInstance.
+    console.log("Class : Inside draw method: ", this);
+    const { width, height } = this;
+    for (let j = 0; j < height; j++) {
+      for (let i = 0; i < width; i++) {
+        process.stdout.write("*");
+      }
+      process.stdout.write("\n");
+    }
+  }
+
+  rotate() {
+    // this here refers to the newInstance.
+    let { width, height } = this;
+    tempWidth = width;
+    this.width = height;
+    this.height = tempWidth;
+    // Calling function inside the same class.
+    // Drawing the recatangle after rotating.
+    this.draw();
+  }
+}
+
+const rect5 = new Rectangle2(10, 5);
+rect5.draw();
+const rect6 = new Rectangle2(7, 8);
+rect6.rotate();
