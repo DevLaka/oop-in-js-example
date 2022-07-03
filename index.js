@@ -107,6 +107,7 @@ class Rectangle2 {
   constructor(width, height) {
     this.width = width;
     this.height = height;
+    this.describeMe();
   }
 
   draw() {
@@ -130,10 +131,21 @@ class Rectangle2 {
     // Calling function inside the same class.
     // Drawing the recatangle after rotating.
     this.draw();
+    this.printDescription();
+  }
+
+  describeMe() {
+    const { width, height } = this;
+    this.description = `I am ${height} units tall and ${width} units fat.`;
+  }
+
+  printDescription() {
+    console.log(this.description);
   }
 }
 
 const rect5 = new Rectangle2(10, 5);
 rect5.draw();
+rect5.printDescription();
 const rect6 = new Rectangle2(7, 8);
 rect6.rotate();
