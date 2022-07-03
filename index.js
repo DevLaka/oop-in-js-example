@@ -149,3 +149,54 @@ rect5.draw();
 rect5.printDescription();
 const rect6 = new Rectangle2(7, 8);
 rect6.rotate();
+
+// Inheritance with classes
+class Human {
+  constructor(name, birthYear) {
+    console.log("Running Human constructor");
+    this.name = name;
+    this.birthYear = birthYear;
+  }
+  introduceMe() {
+    return `Hi. My name is ${this.name}.`;
+  }
+  talk(topic) {
+    return `I am talking about ${topic}`;
+  }
+}
+
+// Using extends we can inherit parent features.
+class Introvert extends Human {
+  constructor(name, birthYear, iqLevel = 100) {
+    console.log("Running introvert constructor");
+    // Super calls the parent constructor.
+    super(name, birthYear);
+    // Defining additional attributes.
+    this.iqLevel = iqLevel;
+  }
+  // Addtional unique feature that is not there in the parent.
+  overthink() {
+    return "I am overthinking as usual.";
+  }
+  // overriding
+  talk(topic) {
+    return `I don't talk about ${topic}. But My IQ is ${this.iqLevel} percent.`;
+  }
+}
+
+class Extrovert extends Human {
+  // Addtional unique feature that is not there in the parent.
+  actNowThinkAfter() {
+    return "I am doing it now. Will think later.";
+  }
+}
+
+const jhon = new Extrovert("Jhon", 2000);
+console.log(jhon.introduceMe());
+console.log(jhon.actNowThinkAfter());
+console.log(jhon.talk());
+
+const mia = new Introvert("Mia", 2002);
+console.log(mia.introduceMe());
+console.log(mia.overthink());
+console.log(mia.talk());
