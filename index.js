@@ -3,10 +3,10 @@
 // We are adding properties and methods to this object.
 
 function drawRectangle(width, height) {
-  const recatangle = {};
-  recatangle.width = width;
-  recatangle.height = height;
-  recatangle.draw = function () {
+  const rectangle = {};
+  rectangle.width = width;
+  rectangle.height = height;
+  rectangle.draw = function () {
     // this here refers to the same object.
     console.log("Factory function : Inside draw method: ", this);
     const { width, height } = this;
@@ -17,13 +17,13 @@ function drawRectangle(width, height) {
       process.stdout.write("\n");
     }
   };
-  recatangle.rotate = function () {
+  rectangle.rotate = function () {
     let { width, height } = this;
     tempWidth = width;
     this.width = height;
     this.height = tempWidth;
   };
-  return recatangle;
+  return rectangle;
 }
 
 const rect1 = drawRectangle(6, 8);
@@ -34,7 +34,7 @@ const rect2 = drawRectangle(10, 6);
 rect2.draw();
 
 // Drawbacks of factory function
-// The methods related to the object is being recreated everytime when object is created using factory function.
+// The methods related to the object is being recreated every time when object is created using factory function.
 // Those methods are unique to the object created.
 // Eg: rect 1 and rect 2 has its own unique copy of draw and rotate methods.
 
@@ -60,15 +60,15 @@ rect2.draw();
 // is returned instead. (Normally constructors don't return a value, but they can choose to do so to override the normal object creation process.)
 // Quote end. Source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new
 
-// Simply, we did step 1, 2, 4 explicity in factroy functions. Here,it is implicity done when we use new.
+// Simply, we did step 1, 2, 4 explicity in factory functions. Here,it is implicitly done when we use new.
 
 function Rectangle(width, height) {
   this.width = width;
   this.height = height;
 }
 
-// Now, We can define methods on consturnctor function's prototype.
-// Don't use arrow functions becuase referring to this is different.
+// Now, We can define methods on constructor function's prototype.
+// Don't use arrow functions because referring to this is different.
 Rectangle.prototype.draw = function () {
   // this here refers to the newInstance.
   console.log("Constructor function : Inside draw method: ", this);
@@ -129,7 +129,7 @@ class Rectangle2 {
     this.width = height;
     this.height = tempWidth;
     // Calling function inside the same class.
-    // Drawing the recatangle after rotating.
+    // Drawing the rectangle after rotating.
     this.draw();
     this.printDescription();
   }
@@ -174,7 +174,7 @@ class Introvert extends Human {
     // Defining additional attributes.
     this.iqLevel = iqLevel;
   }
-  // Addtional unique feature that is not there in the parent.
+  // Additional unique feature that is not there in the parent.
   overthink() {
     return "I am overthinking as usual.";
   }
@@ -185,18 +185,27 @@ class Introvert extends Human {
 }
 
 class Extrovert extends Human {
-  // Addtional unique feature that is not there in the parent.
+  // Additional unique feature that is not there in the parent.
   actNowThinkAfter() {
     return "I am doing it now. Will think later.";
   }
 }
 
-const jhon = new Extrovert("Jhon", 2000);
-console.log(jhon.introduceMe());
-console.log(jhon.actNowThinkAfter());
-console.log(jhon.talk());
+const john = new Extrovert("John", 2000);
+console.log(john.introduceMe());
+console.log(john.actNowThinkAfter());
+console.log(john.talk());
 
 const mia = new Introvert("Mia", 2002);
 console.log(mia.introduceMe());
 console.log(mia.overthink());
-console.log(mia.talk());
+console.log(mia.talk("after-effects of meetings"));
+
+const texas = new Introvert("Texas", 2005, 95);
+console.log(texas.introduceMe());
+console.log(texas.overthink());
+console.log(
+  texas.talk(
+    "the dream i had about a parallel self-contained plane of existence"
+  )
+);
